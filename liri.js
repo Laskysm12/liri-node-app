@@ -5,6 +5,7 @@ var Twitter = require("twitter");
 var Spotify = require("node-spotify-api"); 
 var omdb = require("omdb");
 var fs = require("fs");
+var request = require("request");
 
 // Saves Twitter key from the keys.js file
 var twitterKeys = new Twitter(keys.twitter);
@@ -27,8 +28,8 @@ switch (command) {
   case "spotify-this-song":
     if (nextCommand === undefined) {
       console.log("Could not find the song you were looking for");
-        // Returns results for Mambo Number 5 if the user search is undefined
-      nextCommand = "Mambo Number 5"; 
+        // Returns results for "The Sign" by Ace of Base if the user search is undefined
+      nextCommand = "The Sign"; 
       searchSong();
     } else {
       searchSong();
@@ -62,13 +63,31 @@ function searchTweet() {
             }
         }
     })
-
 }
+
+//=============================Spotify Function=========================
+// function searchSong() {
+
+// }
 
 //=============================OMDB Function==========================
-/*function findMovie() {
-    var queryUrl = "http://omdbapi.com/?t=" + nextCommand + "&y=&plot"
+function findMovie() {
+    var queryUrl = "http://omdbapi.com/?t=" + nextCommand + "&y=&plot=short&apikey=f3aee967";
+    request(queryUrl, function(error, response, body) {
+        // if statement that checks for errors (if not it runs the following code)
+        if (!error && response.statusCode === 200) {
+            console.log("Movie Title: " +JSON.parse(body).Title);
+            console.log("Year Release: " + JSON.parse(body).Year);
+            console.log("Rating: " + JSON.parse(body).Rated);
+            console.log("Actors: " + JSON.parse(body).Actors);
+            console.log("Plot: " + JSON.parse(body).Plot);
+            console.log("Language: " + JSON.parse(body).Language);
+            console.log("Country: " + JSON.parse(body).Country);
+            // Need to add something for Rotten Tomatoes!
+            // End of If statement and display information
+        }
+    });
 }
-*/
+
 
 // do i need to redo my dotenv as npm install dotenv --save ???
