@@ -56,10 +56,19 @@ switch (command) {
 function searchTweet() {
     var params = {screen_name: 'LaskysmUNCC', count: 20};
     twitterKeys.get('statuses/user_timeline', params, function(error, tweets, response) {
-        
+        for (var i = 0; i < tweets.length; i++) {
+            if (!error) {
+                console.log(tweets[i].text)
+            }
+        }
     })
 
 }
 
+//=============================OMDB Function==========================
+/*function findMovie() {
+    var queryUrl = "http://omdbapi.com/?t=" + nextCommand + "&y=&plot"
+}
+*/
 
 // do i need to redo my dotenv as npm install dotenv --save ???
