@@ -66,9 +66,14 @@ function searchTweet() {
 }
 
 //=============================Spotify Function=========================
-// function searchSong() {
-
-// }
+function searchSong() {
+    spotifyKeys.search({ type: 'track', query: nextCommand, limit: 5 }, function(err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+    console.log(data);
+    });
+}
 
 //=============================OMDB Function==========================
 function findMovie() {
@@ -81,6 +86,8 @@ function findMovie() {
             console.log("Rating: " + JSON.parse(body).Rated);
             console.log("Actors: " + JSON.parse(body).Actors);
             console.log("Plot: " + JSON.parse(body).Plot);
+            console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+            console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
             console.log("Language: " + JSON.parse(body).Language);
             console.log("Country: " + JSON.parse(body).Country);
             // Need to add something for Rotten Tomatoes!
