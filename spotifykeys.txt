@@ -1,0 +1,6 @@
+client id = a9d8531f4d724867afac1feecef3bb3a
+client secret = 90190d73a2db45d38177cf93878ce831
+
+https://beta.developer.spotify.com/dashboard/applications/a9d8531f4d724867afac1feecef3bb3a
+
+https://apps.twitter.com/app/14966690/keys
