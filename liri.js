@@ -50,7 +50,7 @@ switch (command) {
     break;
   // Calls the readfile function
   case 'do-what-it-says':
-    readFile();
+    readFS();
 }
 
 //==============================Twitter Function=======================
@@ -67,11 +67,15 @@ function searchTweet() {
 
 //=============================Spotify Function=========================
 function searchSong() {
-    spotifyKeys.search({ type: 'track', query: nextCommand, limit: 5 }, function(err, data) {
+    spotifyKeys.search({ type: 'track', query: nextCommand, limit: 1 }, function(err, data) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
-    console.log(data);
+    var musicInfo = data.tracks.items[0];
+    console.log("Song Name: " + musicInfo.name)
+    console.log("Artist: " + musicInfo.artists[0].name);
+    console.log("Album: " + musicInfo.album.name);
+    console.log("Preview URL: " + musicInfo.preview_url);
     });
 }
 
@@ -94,6 +98,24 @@ function findMovie() {
             // End of If statement and display information
         }
     });
+}
+
+//==========================Do What It Says Function=====================
+function readFS() {
+    fs.readFile('random.txt', 'utf8', function (error, data) {
+        if (error) {
+            return console.log(error)
+        }
+
+        console.log(data);
+
+        // Splitting the data in the .txt file
+        var dataArray = data.split(',');
+        nextCommand = dataArray[1];
+
+        // Running the results for spotify-this-song
+        searchSong();
+    }) // End of readFS function
 }
 
 
